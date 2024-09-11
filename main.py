@@ -25,6 +25,16 @@ velocity_y = random.choice([-1, 1]) * random.uniform(0.5, 2)
 
 color = (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
 
+# Очки
+score = 0
+font = pygame.font.Font(None, 36)
+
+
+def draw_score():
+    score_text = font.render(f'Очки: {score}', True, (0, 0, 0))
+    screen.blit(score_text, (10, 10))
+
+
 running = True
 clock = pygame.time.Clock()
 
@@ -42,6 +52,7 @@ while running:
                 # Опционально изменить скорость при попадании
                 velocity_x = random.choice([-1, 1]) * random.uniform(0.5, 2)
                 velocity_y = random.choice([-1, 1]) * random.uniform(0.5, 2)
+                score += 10  # Добавление очков за попадание
 
     # Обновление позиции мишени
     target_x += velocity_x
@@ -54,6 +65,7 @@ while running:
         velocity_y = -velocity_y
 
     screen.blit(target_image, (target_x, target_y))
+    draw_score()  # Отображение очков
     pygame.display.update()
     clock.tick(60)  # Ограничение FPS до 60
 
